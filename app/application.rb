@@ -1,0 +1,6 @@
+require 'opal'
+require 'opal-jquery'
+require 'native'
+require_relative 'vue'
+require_relative 'vue_component'
+require_relative 'calc'

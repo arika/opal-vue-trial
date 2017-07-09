@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>Opal、Vue.js、Sinatra試行錯誤: <%= @title %></title>
+    <script src="https://unpkg.com/vue@2.3.4/dist/vue.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <%= ::Opal::Sprockets.javascript_include_tag('application', sprockets: settings.sprockets, prefix: settings.prefix, debug: !settings.production?) %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
