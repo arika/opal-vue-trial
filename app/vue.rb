@@ -150,8 +150,29 @@ class Vue
     end
 
     computed = options.JS[:computed]
-    self.class._computed.each do |name|
-      computed.JS[name] = method(name).to_proc
+    added = []
+    computed_methods = self.class._computed
+    computed_methods.each do |name|
+      next if added.include?(name)
+
+      opt = `{}`
+      if /=$/ =~ name
+        opt.JS[:set] = method(name).to_proc
+        pair_type = :get
+        pair_method = $`.to_sym
+      else
+        opt.JS[:get] = method(name).to_proc
+        pair_type = :set
+        pair_method = "#{name}=".to_sym
+      end
+
+      if computed_methods.include?(pair_method)
+        opt.JS[pair_type] = method(pair_method).to_proc
+        added << pair_method
+      end
+
+      computed.JS[name] = opt
+      added << name
     end
 
     options
