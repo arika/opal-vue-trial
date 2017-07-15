@@ -132,6 +132,10 @@ class Vue
     _mount(selector)
   end
 
+  def emit(*args)
+    @vue.JS['$emit'].JS.apply(@vue, args)
+  end
+
   def _mount(selector)
     return unless selector
     `#{@vue}.$mount(selector)`
